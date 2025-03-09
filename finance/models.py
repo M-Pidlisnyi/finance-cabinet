@@ -12,7 +12,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 class DebitAcccount(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts')
     funds = models.DecimalField(verbose_name="own user's funds", decimal_places=2, max_digits=10)
     
 

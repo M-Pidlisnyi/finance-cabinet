@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>User Profile</h1>
+<p>Welcome, {{ user.username }}!</p>
+<p>Email: {{ user.email }}</p>
+Your accounts:
+{% for acc in user.accounts.all %}
+    <p>{{acc.id}}</p>
+{% endfor %}
+<!-- Add more user profile details as needed -->
+{% endblock %}
