@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 # Create your views here.
 class SignupView(CreateView):
@@ -14,5 +14,7 @@ class SignupView(CreateView):
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-       login(self.request, form.save())
-       return super().form_valid(form)
+       form.save()
+       user = form.instance
+       login(self.request, user)
+       return redirect(reverse("profile"))

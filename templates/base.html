@@ -14,8 +14,8 @@
         {% if user.is_authenticated%}
         <div class="welcome-text">
             <span>Welcome, {{user.first_name}} {{user.last_name}}</span>
-            <a href="{% url 'profile' %}" class="btn btn-success">Go to Your Profile</a>
-            <form action="{% url 'logout' %}" method="post">{%csrf_token%}<input type="submit" value="logout" class="btn btn-danger"></form>
+            <a href="{% url 'profile' %}" class="btn btn-success">Go to Your Profile &#128220</a>
+            <form action="{% url 'logout' %}" method="post">{%csrf_token%}<input type="submit" value=" &#128281 logout" class="btn btn-danger"></form>
         </div>
 
         {% else %}

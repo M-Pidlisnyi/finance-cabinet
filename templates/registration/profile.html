@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>User Profile</h1>
+<h1>User Profile 
+    <a class="btn btn-warning" href="{% url 'profile-edit' user.id%}">
+        edit &#128393
+    </a> 
+</h1>
 <p>Welcome, {{ user.username }}!</p>
 <p>Email: {{ user.email }}</p>
-Your accounts:
-{% for acc in user.accounts.all %}
-    <p>{{acc.id}}</p>
-{% endfor %}
-<!-- Add more user profile details as needed -->
+{% if user.accounts.exists %}
+    Your accounts:
+    {% for acc in user.accounts.all %}
+        <p>{{acc.id}}</p>
+    {% endfor %}
+{% endif %}
+<a href="{% url 'finacc-open' %}" class="btn btn-success">Open new account</a>
+
 {% endblock %}
