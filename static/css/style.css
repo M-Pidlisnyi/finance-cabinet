@@ -21,3 +21,13 @@ footer{
     background: black;
     color: white;
 }
+.img-container{
+    background-color: #a5b3c7;
+    border: 1px solid;
+    box-shadow: 10px 5px 5px #4A5A6F ;
+    border-radius: 5px;
+}
+
+.line-up{
+    text-align: right;
+}
