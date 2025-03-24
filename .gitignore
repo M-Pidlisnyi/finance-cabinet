@@ -5,6 +5,7 @@ __pycache__/
 
 .claudiaideconfig
 .vs/
+.vscode/
 
 # C extensions
 *.so
