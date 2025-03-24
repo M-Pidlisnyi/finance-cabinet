@@ -5,8 +5,26 @@
     <p>Here you can see all your finances.</p>
     <div class="img-container">
         {% load static %}
+        {% for acc in accounts %}
+            <p class="account">
+                <a href="#">
+                    <img src="{% static 'pics/credit-card.png' %}"><br>
+                    <span class="btn btn-primary account-name"><br>
+                        {% if acc.creditaccount %}
+                            <br>{{acc.creditaccount}}
+                        {% else %}
+                            <br>{{acc}}
+                        {% endif %}
+                    </span>
+
+                </a>
+            </p>
+        {%endfor%}
+        {% if acc_num <= 2 %}
         <p class="line-up">
-            <img  src="{% static 'pics/stonks.png' %}" alt="line go up">
+            <img  src="{% static 'pics/stonks.png' %}" alt="line go up"><br>
+            <a href="{% url 'finacc-open' %}" class="btn btn-success">Open a new account</a>
         </p>
+        {% endif %}
     </div>
 {% endblock %}

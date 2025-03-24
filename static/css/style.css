@@ -26,11 +26,45 @@ footer{
     border: 1px solid;
     box-shadow: 10px 5px 5px #4A5A6F ;
     border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-x: hidden;
+
 }
 
-.line-up{
-    text-align: right;
+.img-container:not(:empty){
+    overflow-x: auto;
 }
+
+.img-container p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(2rem - 0.2rem * var(--count)); 
+    flex-shrink: 1;
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+.container p img {
+    width: calc(100px - 5px * var(--count)); /* Image shrinks */
+    height: auto;
+    max-width: 100%; /* Prevents overflow */
+  }
+
+/* .line-up{
+    text-align: right;
+} */
+
+p.account:hover{
+    box-shadow: 5x 10px 5px red;
+    opacity: 80%;
+}
+
+
 
 .welcome-text{
     display: inline;
