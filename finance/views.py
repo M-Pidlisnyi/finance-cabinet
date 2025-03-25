@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 
 from .models import FinanceAccount, CreditAccount, DebitAccount
+from .forms import OpenAccountForm
 from .utils import get_account_type
 
 # Create your views here.
@@ -39,3 +40,12 @@ class FinAccountDetailView(DetailView):
         return context
 
 
+def open_account(request:HttpRequest):
+    if request.method == 'POST':
+        form = OpenAccountForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = OpenAccountForm()
+    return render(request, 'finance/open_account.html', {'form': form})

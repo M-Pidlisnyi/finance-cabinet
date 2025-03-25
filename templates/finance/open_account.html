@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Open Account</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            {{form.account_type.label_tag}} {{form.account_type}}
+            {% if form.account_type.errors %}
+                <div class="field-errors">{{form.account_type.errors}}</div>
+            {% endif %}
+        </p>    
+        <p>{{form.initial_funds.label_tag}} {{form.initial_funds}}</p>
+
+        <div id="creditFields" style="display: none;">
+            <p>{{form.credit_limit.label_tag}} {{form.credit_limit}}</p>
+        </div>
+
+        <div id="debitFields" style="display: none;">
+            <p>{{form.default_commission.label_tag}} {{form.default_commission}}</p>
+            <p>{{form.cashback_rate.label_tag}} {{form.cashback_rate}}</p>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Show or hide fields based on selected account type
+        document.getElementById('id_account_type').addEventListener('change', function() {
+            const accountType = this.value;
+    
+            // Hide all fields initially
+            document.getElementById('creditFields').style.display = 'none';
+            document.getElementById('debitFields').style.display = 'none';
+    
+            // Show the correct fields based on selected account type
+            if (accountType === 'credit') {
+                document.getElementById('creditFields').style.display = 'block';
+            } else if (accountType === 'debit') {
+                document.getElementById('debitFields').style.display = 'block';
+            }
+        });
+    </script>
+{% endblock %}
