@@ -25,12 +25,20 @@ class FinAccountDetailView(DetailView):
     model = FinanceAccount
     template_name = 'finance/account_detail.html'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        account_type = type(self.get_object()).__name__
-        context['account_type'] = account_type
+        account_type = ""
+        account = self.get_object()
+        if hasattr(account, "creditaccount"):
+            account_type = "Credit"
+            account = account.creditaccount
+        elif hasattr(account, "debitaccount"):
+            account_type = "Debit"
+            account = account.debitaccount
+        
+        context["account"] = account
+        context["account_type"] = account_type
 
         return context
 

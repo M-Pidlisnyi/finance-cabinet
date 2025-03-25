@@ -2,6 +2,19 @@
 
 
 {% block content %}
-{{ account_type }}
+<h3> {{account.user}}'s {{ account_type }} account</h3>
+<div>
+    <p>${{account.funds}}</p>
+    <h6>Account Details</h6>
+    {% if account_type == 'Debit' %}
+        <p>Standart transaction commision: {{account.default_commission}}%</p>
+        <p>Cashback rate: {{account.cashback_rate}}%</p>
+        <p>Cashback accumulated: ${{account.accumulated_cashback}}</p>
+    {% elif account_type == 'Credit'%}
+        <p>Credit limit: ${{account.credit_limit}}</p>
+        <p>Current credit: ${{account.current_credit}}</p>
+    {% endif %}
+</div>
+
 
 {% endblock %}
