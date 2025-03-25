@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.views.generic import DetailView
 
 from .models import FinanceAccount, CreditAccount, DebitAccount
+from .utils import get_account_type
 
 # Create your views here.
 def index(request:HttpRequest):
@@ -11,11 +12,13 @@ def index(request:HttpRequest):
     if current_user.is_authenticated:
         user_accounts = FinanceAccount.objects.filter(user=current_user)
 
-        total_acc_number = len(user_accounts)
         #if not planning to iterate over them don't use len() for querysets, insteas use .count()
         #in this case we WILL iterate so len() MIGHT be faster
+        total_acc_number = len(user_accounts)
 
-        context = {"accounts": user_accounts,  "acc_num": total_acc_number}
+        accounts_with_type = [get_account_type(account) for account in user_accounts]
+
+        context = {"accounts": accounts_with_type,  "acc_num": total_acc_number}
 
 
     return render(request, 'finance/index.html', context=context)
@@ -28,14 +31,7 @@ class FinAccountDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        account_type = ""
-        account = self.get_object()
-        if hasattr(account, "creditaccount"):
-            account_type = "Credit"
-            account = account.creditaccount
-        elif hasattr(account, "debitaccount"):
-            account_type = "Debit"
-            account = account.debitaccount
+        account_type, account = get_account_type(self.get_object())
         
         context["account"] = account
         context["account_type"] = account_type

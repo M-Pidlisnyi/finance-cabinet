@@ -5,12 +5,13 @@
     <p>Here you can see all your finances.</p>
     <div class="img-container">
         {% load static %}
-        {% for acc in accounts %}
+        {% for type, acc in accounts %}
             <p class="account">
                 <a href="{% url 'account-detail' acc.id %}">
                     <img src="{% static 'pics/credit-card.png' %}"><br>
-                    <span class="btn btn-primary account-name"><br>
-                        {{acc}}
+                    <span class="btn btn-primary account-name">
+                        {{type}}<br>
+                        {{acc.funds}}
                     </span>
 
                 </a>
