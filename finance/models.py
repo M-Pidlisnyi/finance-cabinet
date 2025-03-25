@@ -11,12 +11,16 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-class DebitAcccount(models.Model):
+class FinanceAccount(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts')
-    funds = models.DecimalField(verbose_name="own user's funds", decimal_places=2, max_digits=10)
-    
+    funds = models.DecimalField(verbose_name="user's own funds", decimal_places=2, max_digits=10)
+   
 
-class CreditAccount(DebitAcccount):
+class DebitAccount(FinanceAccount):
+    default_commission = models.DecimalField(decimal_places=2, max_digits=10)
+    default_cashback = models.DecimalField(decimal_places=2, max_digits=10)
+
+class CreditAccount(FinanceAccount):
     credit_limit = models.DecimalField(decimal_places=2, max_digits=10)
     current_credit = models.DecimalField(decimal_places=2, max_digits=10)
 
@@ -40,5 +44,5 @@ class Transaction(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)    
     is_successful = models.BooleanField(default=True)
-    from_account = models.ForeignKey(DebitAcccount, on_delete=models.CASCADE, related_name='payments_from')
-    to_account = models.ForeignKey(DebitAcccount, on_delete=models.CASCADE, related_name='payments_to')
+    from_account = models.ForeignKey(FinanceAccount, on_delete=models.CASCADE, related_name='payments_from')
+    to_account = models.ForeignKey(FinanceAccount, on_delete=models.CASCADE, related_name='payments_to')

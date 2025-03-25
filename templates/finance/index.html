@@ -7,14 +7,10 @@
         {% load static %}
         {% for acc in accounts %}
             <p class="account">
-                <a href="#">
+                <a href="{% url 'account-detail' acc.id %}">
                     <img src="{% static 'pics/credit-card.png' %}"><br>
                     <span class="btn btn-primary account-name"><br>
-                        {% if acc.creditaccount %}
-                            <br>{{acc.creditaccount}}
-                        {% else %}
-                            <br>{{acc}}
-                        {% endif %}
+                        {{acc}}
                     </span>
 
                 </a>
