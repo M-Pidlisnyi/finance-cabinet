@@ -17,8 +17,9 @@ class FinanceAccount(models.Model):
    
 
 class DebitAccount(FinanceAccount):
-    default_commission = models.DecimalField(decimal_places=2, max_digits=10)
-    default_cashback = models.DecimalField(decimal_places=2, max_digits=10)
+    default_commission = models.DecimalField(decimal_places=2, max_digits=4, verbose_name="default commission (%)")
+    cashback_rate= models.DecimalField(decimal_places=2, max_digits=4, verbose_name="default cashback (%)")
+    accumulated_cashback = models.DecimalField(decimal_places=2, max_digits=10, default=0)
 
 class CreditAccount(FinanceAccount):
     credit_limit = models.DecimalField(decimal_places=2, max_digits=10)
@@ -34,7 +35,7 @@ class SavingsGoal(models.Model):
 class Deposit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     principal = models.DecimalField(decimal_places=2, max_digits=10)
-    interest_rate = models.DecimalField(decimal_places=2, max_digits=4)
+    interest_rate = models.DecimalField(decimal_places=2, max_digits=4, verbose_name="interest rate (%)")
     period = models.IntegerField()
     payments_per_year = models.IntegerField()
     start_date = models.DateField()
