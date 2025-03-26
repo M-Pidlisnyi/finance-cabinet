@@ -39,5 +39,20 @@
                 document.getElementById('debitFields').style.display = 'block';
             }
         });
+
+        //dynamically change cashback rate based on default commission
+        const defaultCommission = document.getElementById('id_default_commission');
+        const cashbackRate = document.getElementById('id_cashback_rate');
+
+        const ratio = 0.259;
+
+        defaultCommission.addEventListener('input', function() {
+            cashbackRate.value = (this.value / ratio).toFixed(2);
+        });
+
+        cashbackRate.addEventListener('input', function() {
+            defaultCommission.value = (this.value * ratio).toFixed(2);
+        });
+        
     </script>
 {% endblock %}

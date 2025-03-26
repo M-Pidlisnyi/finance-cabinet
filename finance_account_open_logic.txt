@@ -1,0 +1,11 @@
+
+To open debit account user must have credit account or open both simutaniuosly
+
+The inital credit limit is 1k + the amount user puts in intial funds
+User can lower the limit but not increase
+
+when opening debit account the cashback rate is proportional to default commission
+the commision starts at 0.35%, cashback at 1.35%
+
+user can increase commision and to increase cashback and vice verbose_name
+

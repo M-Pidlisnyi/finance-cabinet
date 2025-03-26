@@ -1,4 +1,6 @@
 from django import forms
+from .models import CreditAccount, DebitAccount
+
 
 class OpenAccountForm(forms.Form):
     ACCOUNT_CHOICES = [
@@ -13,8 +15,10 @@ class OpenAccountForm(forms.Form):
     initial_funds = forms.DecimalField(max_digits=10, decimal_places=2, initial=0, disabled=True)
 
     #debit
-    default_commission = forms.DecimalField(max_digits=4, decimal_places=2, initial=0.0, disabled=True)
-    cashback_rate = forms.DecimalField(max_digits=4, decimal_places=2, initial=0.0, disabled=True)
+    default_commission = forms.DecimalField(max_digits=4, decimal_places=2, 
+                                            initial=DebitAccount._meta.get_field('default_commission').default)
+    cashback_rate = forms.DecimalField(max_digits=4, decimal_places=2, 
+                                       initial=DebitAccount._meta.get_field('cashback_rate').default)
 
     #credit
     credit_limit = forms.DecimalField(max_digits=10, decimal_places=2, initial=0, disabled=True)
