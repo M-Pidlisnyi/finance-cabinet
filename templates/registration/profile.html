@@ -10,9 +10,17 @@
 <p>Email: {{ user.email }}</p>
 {% if user.accounts.exists %}
     Your accounts:
+    {% load static %}
+    <ul class="list-group profile-acc-list">
     {% for acc in user.accounts.all %}
-        <p>{{acc.id}}</p>
+        <li class="list-group-item list-group-item-action">
+            <a href="{% url 'account-detail' acc.id %}">
+                <img src="{% static 'pics/credit-card.png' %}" alt="credit card" width="20px" height="20px">
+                {{acc.funds}}
+            </a>
+        </li>
     {% endfor %}
+    </ul>
 {% endif %}
 <a href="{% url 'finacc-open' %}" class="btn btn-success">Open new account</a>
 
