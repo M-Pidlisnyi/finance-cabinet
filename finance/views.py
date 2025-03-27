@@ -49,3 +49,7 @@ def open_account(request:HttpRequest):
     else:
         form = OpenAccountForm()
     return render(request, 'finance/open_account.html', {'form': form})
+
+
+def close_account(request:HttpRequest, pk:int):
+    return HttpResponse("This feature is not implemented yet", status=501)

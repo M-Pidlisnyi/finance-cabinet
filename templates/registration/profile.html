@@ -18,10 +18,24 @@
                 <img src="{% static 'pics/credit-card.png' %}" alt="credit card" width="20px" height="20px">
                 {{acc.funds}}
             </a>
+            <button class="closeAccBtn" data-url="{% url 'finacc-close' acc.id %}"><span style="color: red;">X</span></button>
+           
         </li>
     {% endfor %}
     </ul>
 {% endif %}
 <a href="{% url 'finacc-open' %}" class="btn btn-success">Open new account</a>
+
+<script>
+    document.querySelectorAll(".closeAccBtn").forEach( button => {
+        button.addEventListener("click", function() {
+            let url = this.getAttribute("data-url");
+            let userConfirmed = confirm("Are you sure you want to close this account?");//use SweetAlert2
+            if (userConfirmed) {
+                window.location.href = url; 
+            }
+        });
+    });
+</script>
 
 {% endblock %}
