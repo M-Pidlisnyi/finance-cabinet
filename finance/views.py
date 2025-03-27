@@ -42,7 +42,7 @@ class FinAccountDetailView(DetailView):
 
 def open_account(request:HttpRequest):
     if request.method == 'POST':
-        form = OpenAccountForm(request.POST)
+        form = OpenAccountForm(request.POST, request=request)
         if form.is_valid():
             form.save()
             return redirect('index')

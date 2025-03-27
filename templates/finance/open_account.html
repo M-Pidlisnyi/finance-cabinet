@@ -53,6 +53,30 @@
         cashbackRate.addEventListener('input', function() {
             defaultCommission.value = (this.value * ratio).toFixed(2);
         });
-        
+
+        //dynamically change credit limit based on initial funds and lower the credit limit 
+        const initial_funds = document.getElementById('id_initial_funds');
+        const credit_limit = document.getElementById('id_credit_limit');
+    
+        function lowerCreditLimit() {
+            let baseValue = parseFloat(initial_funds.value) || 0;
+            let maxValue = (baseValue + 1000).toFixed(2); 
+            let currentValue = parseFloat(credit_limit.value) || 0;
+
+            if (currentValue > maxValue) {
+                credit_limit.value = maxValue; // Reset if exceeded
+            }
+        }
+
+        initial_funds.addEventListener('input', function() {
+            credit_limit.value = (parseFloat(this.value) + 1000).toFixed(2);
+        });
+
+        credit_limit.addEventListener('input', function() {
+            requestAnimationFrame(lowerCreditLimit());
+        }
+            
+        );
+
     </script>
 {% endblock %}
