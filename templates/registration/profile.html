@@ -18,7 +18,7 @@
                 <img src="{% static 'pics/credit-card.png' %}" alt="credit card" width="20px" height="20px">
                 {{acc.funds}}
             </a>
-            <button class="closeAccBtn" data-url="{% url 'finacc-close' acc.id %}"><span style="color: red;">X</span></button>
+            <button class="closeAccBtn btn btn-danger" data-url="{% url 'finacc-close' acc.id %}"><span>X</span></button>
            
         </li>
     {% endfor %}
@@ -30,10 +30,22 @@
     document.querySelectorAll(".closeAccBtn").forEach( button => {
         button.addEventListener("click", function() {
             let url = this.getAttribute("data-url");
-            let userConfirmed = confirm("Are you sure you want to close this account?");//use SweetAlert2
-            if (userConfirmed) {
-                window.location.href = url; 
-            }
+            Swal.fire({
+                    title: "Are you sure you wish to delete this financila account?",
+                    text: "You will be redirected to confirmation page",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, take me there!",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+            });
+
+
         });
     });
 </script>
