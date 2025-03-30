@@ -3,12 +3,14 @@ from .models import FinanceAccount, CreditAccount, DebitAccount
 
 
 def get_account_type(account: FinanceAccount) -> tuple[str, CreditAccount|DebitAccount]:
-    """Determine the type of account (Credit or Debit) and return the string with the type name
+    """
+    WARDNINIG: this is a legacy function, written before polymorphic models were used.
+    Determine the type of account (Credit or Debit) and return the string with the type name
     and specific account object."""
 
-    if hasattr(account, "creditaccount"):
-        return "Credit", account.creditaccount
-    elif hasattr(account, "debitaccount"):
-        return "Debit", account.debitaccount
+    if isinstance(account, CreditAccount):
+        return "Credit", account
+    elif isinstance(account, DebitAccount):
+        return "Debit", account
     else:
-        return "Unkonwn", account
+        raise ValueError("Unknown account type")

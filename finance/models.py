@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-
+from polymorphic.models import PolymorphicModel
 
 # Create your models here.
 class Category(models.Model):
@@ -12,7 +12,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-class FinanceAccount(models.Model):
+class FinanceAccount(PolymorphicModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts')
     funds = models.DecimalField(verbose_name="user's own funds", decimal_places=2, max_digits=10)
    

@@ -55,12 +55,23 @@ def close_account(request:HttpRequest, pk:int):
     acc_to_delete = get_object_or_404(FinanceAccount, pk=pk)
     funds = acc_to_delete.funds
 
-    #not working. use django-polymorphic
-    debt = acc_to_delete.current_credit if get_account_type(acc_to_delete)[0] == "Credit" else 0
+    debt = acc_to_delete.current_credit if isinstance(acc_to_delete, CreditAccount) else 0
+    accumulated_cashback = acc_to_delete.accumulated_cashback if isinstance(acc_to_delete, DebitAccount) else 0
+
+    if request.method == 'POST':
+        confimred = request.POST.get('confirm', False)
+        if confimred:
+            print("Deleting account...")
+            return redirect('finacc-close', pk=pk)
+        else:
+            return redirect('finacc-close', pk=pk)
 
     context = {
         "account": acc_to_delete,
         "funds": funds, 
-        "debt": debt}
+        "debt": debt,
+        "accumulated_cashback": accumulated_cashback,
+
+    }
 
     return render(request, "finance/close_account.html", context=context)

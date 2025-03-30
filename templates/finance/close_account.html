@@ -2,12 +2,30 @@
 
 {% block content %}
     <h1>Close Account</h1>
-    {{account}}
-    {{test}}
     <form method="post">
         {% csrf_token %}
-        <input type="number" name="" id="" value="{{funds}}" disabled>        
-        <input type="number" name="" id="" value="{{debt}}" disabled>
+        <p>
+            <label for="funds">Funds:</label>
+            <input type="number" id="funds" value="{{funds}}" disabled>        
+        </p>
+        {% if debt %}
+        <p>
+            <label for="debt">Debt:</label>
+            <input type="number" id="debt" value="{{debt}}" disabled>
+        </p>
+        {% endif %}
+        {% if accumulated_cashback %}
+        <p>
+            <label for="accumulated_cashback">Accumulated Cashback:</label>
+            <input type="number" id="accumulated_cashback" value="{{accumulated_cashback}}" disabled>
+        </p>
+        {% endif %}
+
+        <p>
+            <input type="checkbox" name="confirm" id="confirm">
+            <label for="confirm">I understand that this acction is permanent and I want to close my account.</label>
+        </p>
+       
         <button type="submit">Close Account</button>
     </form>
 {% endblock %}
