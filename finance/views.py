@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from django.views.generic import DetailView, CreateView
 
@@ -52,6 +52,15 @@ def open_account(request:HttpRequest):
 
 
 def close_account(request:HttpRequest, pk:int):
-    acc_to_delete = FinanceAccount.objects.get(id=pk)
-    #can't delete if there's funds or credit on the account
-    return render(request, "finance/close_account.html", {"account": acc_to_delete})
+    acc_to_delete = get_object_or_404(FinanceAccount, pk=pk)
+    funds = acc_to_delete.funds
+
+    #not working. use django-polymorphic
+    debt = acc_to_delete.current_credit if get_account_type(acc_to_delete)[0] == "Credit" else 0
+
+    context = {
+        "account": acc_to_delete,
+        "funds": funds, 
+        "debt": debt}
+
+    return render(request, "finance/close_account.html", context=context)

@@ -3,8 +3,11 @@
 {% block content %}
     <h1>Close Account</h1>
     {{account}}
+    {{test}}
     <form method="post">
         {% csrf_token %}
+        <input type="number" name="" id="" value="{{funds}}" disabled>        
+        <input type="number" name="" id="" value="{{debt}}" disabled>
         <button type="submit">Close Account</button>
     </form>
 {% endblock %}
