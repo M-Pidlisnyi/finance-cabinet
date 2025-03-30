@@ -52,4 +52,6 @@ def open_account(request:HttpRequest):
 
 
 def close_account(request:HttpRequest, pk:int):
-    return HttpResponse("This feature is not implemented yet", status=501)
+    acc_to_delete = FinanceAccount.objects.get(id=pk)
+    #can't delete if there's funds or credit on the account
+    return render(request, "finance/close_account.html", {"account": acc_to_delete})

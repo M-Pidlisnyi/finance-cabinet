@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Close Account</h1>
+    {{account}}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Close Account</button>
+    </form>
+{% endblock %}
