@@ -12,8 +12,12 @@
         <p>Cashback accumulated: ${{account.accumulated_cashback}}</p>
     {% elif account_type == 'Credit'%}
         <p>Credit limit: ${{account.credit_limit}}</p>
-        <p>Current credit: ${{account.current_credit}}</p>
+        <p>Current credit: ${{account.current_credit}}</p> 
     {% endif %}
+
+    <button class="closeAccBtn btn btn-danger" data-url="{% url 'finacc-close' account.id %}">
+        <span>Close this account</span>
+    </button>
 </div>
 
 
