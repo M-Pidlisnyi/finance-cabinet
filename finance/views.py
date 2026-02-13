@@ -62,7 +62,8 @@ def close_account(request:HttpRequest, pk:int):
         confimred = request.POST.get('confirm', False)
         if confimred:
             print("Deleting account...")
-            return redirect('finacc-close', pk=pk)
+            acc_to_delete.delete()
+            return redirect('index')
         else:
             return redirect('finacc-close', pk=pk)
 
